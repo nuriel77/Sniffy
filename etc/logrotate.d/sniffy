@@ -1,0 +1,11 @@
+/var/log/sniffy.log {
+    notifempty
+    compress
+    delaycompress
+    create 0600 root root
+    size 50M
+    rotate 5
+    postrotate
+      /sbin/service sniffy condrestart >/dev/null 2>&1 || :
+    endscript
+}

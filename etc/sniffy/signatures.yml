@@ -1,0 +1,33 @@
+---
+- name: 'wordpress'
+  method: 'POST|GET|PUT|TRACE' # Regex
+  uri: '/wp\-admin|/wp\-login' # Regex
+
+  # Example:
+  #src_net: 108.174.155.0/24    # IP or CIDR, can use 0.0.0.0/0 for all
+
+  src_net: 0.0.0.0/0
+  dst_net: 0.0.0.0/0           # IP or CIDR, can use 0.0.0.0/0 for all
+  payload: '.*'                # Regex
+
+  # Examples:
+  #allowed_dst_ips:             # List of IPs, or omit
+  #  - 185.10.48.110
+  #allowed_src_ips:             # List of IPs, or omit
+  #  - 108.174.155.159
+  #  - 108.174.155.150
+
+- name: 'example'
+  method: 'POST|GET'
+  uri: '/somewhere.php'
+  payload: 'testing_utf8=Zürich'
+
+- name: 'example2'
+  method: 'POST'
+  uri: 'bad_page'
+  payload: 'bad_stuff'
+
+- name: 'wp_xmlrpc_attack'
+  method: 'POST'
+  uri: '/xmlrpc.php'
+  payload: '.*\n*.*wp.getUsersBlogs.*\n*.*wp.getUsersBlogs.*\n*.*'

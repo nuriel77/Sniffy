@@ -1,0 +1,97 @@
+#! /bin/bash
+#
+# Sniffy
+#
+# chkconfig: 2345 55 25
+# description: Runs Sniffer daemon
+# pidfile: /var/run/sniffy.pid
+
+NAME=sniffy
+NOTIFY=root@localhost
+MAIN_IP=$(ip ro get 8.8.8.8 | head -n1 | awk '{print $NF}')
+INTERFACE=$(ip ro get 8.8.8.8 | head -n1 | awk '{print $5}')
+BPF="tcp dst port 80 and src host $MAIN_IP or (ip[6:2] & 0x1fff) != 0"
+DEBUG=
+DAEMON_SCRIPT=/usr/local/bin/sniffy
+PIDFILE=/var/run/sniffy.pid
+ERROR=0
+DATABASE_ENGINE=redis
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+[ -f /etc/sniffy/defaults ] && . /etc/sniffy/defaults
+
+check_instance(){
+  pgrep -f "$DAEMON_SCRIPT"
+}
+
+case "$1" in
+  start)
+    echo "Starting daemon"
+    # Start the daemon
+    R=$(check_instance)
+    if [[ -n "$R" ]];then
+      echo Error: Found an instance already running with pid $R
+      exit 1
+    fi
+    daemon --pidfile="$PIDFILE" \
+           $DAEMON_SCRIPT -D \
+           -n $NOTIFY \
+           -i $INTERFACE \
+           -f "'$BPF'" \
+           $DEBUG
+    retval=$?
+    [ $retval -eq 0 ] && {
+      sleep 1
+      PID=$(check_instance)
+      echo $PID > $PIDFILE
+      printf "%s\n" "Ok"
+    } || {
+      printf "%s\n" "Fail"
+      exit 1  
+    }
+
+    ;;
+  stop)
+    printf "%-50s" "Stopping $NAME"
+    killproc -p "$PIDFILE" -d 1 "$DAEMON_SCRIPT" -SIGHUP
+    if [ -f "$PIDFILE" ]; then
+      rm -f "$PIDFILE"
+    fi
+    echo ""
+    ;;
+  status)
+    printf "%-50s" "Checking $NAME..."
+    status -p "$PIDFILE" "$DAEMON_SCRIPT"
+    ;;
+  restart)
+    echo "Restarting daemon"
+    $0 stop
+    sleep 2
+    $0 start
+    ;;
+  condrestart)
+    R=$(check_instance)
+    if [[ -n "$R" ]];then
+      $0 restart      
+    fi      
+    ;;
+  reload)
+    printf "%-50s" "Reloading $NAME"
+    if [ -f "$PIDFILE" ]; then
+      PID=$(cat $PIDFILE)
+      killproc -p "$PIDFILE" -d 1 "$DAEMON_SCRIPT" -SIGUSR1
+      echo ""
+    else
+      printf "%s\n" "pidfile not found"
+    fi
+    ;;
+  *)
+    # Refuse to do other stuff
+    echo "Usage: $0 {start|stop|restart|condrestart|reload|status}"
+    exit 1
+    ;;
+esac
+
+exit

@@ -1,0 +1,14 @@
+# Who to notify about potential abusers
+NOTIFY=some_email@hello.cl
+
+# Set -d for debug
+DEBUG=""
+
+# Location of the main script
+DAEMON_SCRIPT=/usr/local/bin/sniffy
+
+# Pid file location
+PIDFILE=/var/run/sniffy.pid
+
+# Database engine to use
+DATABASE_ENGINE=redis

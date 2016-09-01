@@ -1,0 +1,8 @@
+include etc/logrotate.d/sniffy
+include etc/sniffy/*
+include etc/cron.d/sniffy_signatures
+include scripts/*
+include etc/init.d/sniffy
+exclude README.md
+recursive-exclude * *.pyc
+recursive-exclude * *.pyo

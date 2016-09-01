@@ -1,0 +1,4 @@
+---
+host: 'trash.accountservergroup.com'
+port: 6379
+password: 'socool123'
