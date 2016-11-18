@@ -56,7 +56,7 @@ For example:
 ```bash
 sudo -u nuriel.shemtov curl -X POST -d '{"username":"xyz","password":"xyz"}' http://x-vps.com/wp-login
 ```
-Note that only non root users are logged in iptables.
+Note that iptables has to be configured so that only non root users are logged.
 After having run the calls more than the threshold (5 times by default within 7 seconds) there should be an email sent to the address specified in NOTIFY="..." in the `/etc/sniffy/defaults` file.
 
 Instead of checking the kernel-debug.log (where iptables should be logging) sniffy is checking dmesg because kernel-debug.log might miss some calls from time to time.
