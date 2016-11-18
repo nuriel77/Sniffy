@@ -1,3 +1,12 @@
+# Description
+
+Program to inspect HTTP packets for potential abusers.
+Matching certain patterns and registering results to
+database. When limit/threshold is reached will alert
+by sending email with the information. Can be expended
+to allow other actions.
+
+
 Repository for Sniffy
 
 # INSTALLATION (not via RPM)
