@@ -1,6 +1,6 @@
 SOURCES
 *.pyc
 *.pyo
-lib/
+lib/sniffy.egg-info/
 dist/
 build/
