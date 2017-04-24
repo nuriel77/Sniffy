@@ -1,0 +1,6 @@
+SOURCES
+*.pyc
+*.pyo
+lib/
+dist/
+build/
