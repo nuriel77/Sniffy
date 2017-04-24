@@ -10,6 +10,26 @@ to allow other actions.
 Repository for Sniffy
 
 # INSTALLATION (not via RPM)
+Ensure you have the following packages installed on your system.
+For example, CentOS:
+```bash
+libffi-devel
+openssl-devel
+python-devel
+tcpdump
+```
+
+You can create a virtualenv and install requirements:
+```bash
+pip install -r requirements.txt
+```
+Everything should work now, given you have a database (Redis by default).
+
+In addition check the ./etc/sniffy/db.creds.yaml if authentication details are correct.
+
+
+
+Then:
 ```bash
 python setup.py install
 ```
