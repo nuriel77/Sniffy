@@ -76,6 +76,7 @@ Log file in `/var/log/sniffy.log`
 Signatures can be updated and sniffy reloaded to start using the new signatures: `service sniffy reload`
 
 To test, can run a curl request to a certain host using one of the patterns specified in the signatures file.
+
 For example:
 ```bash
 sudo -u nuriel.shemtov curl -X POST -d '{"username":"xyz","password":"xyz"}' http://x-vps.com/wp-login
