@@ -20,4 +20,3 @@ redis==2.10.5
 scapy==2.3.3
 scapy-http==1.8
 six==1.10.0
-sniffy==1.0.1
