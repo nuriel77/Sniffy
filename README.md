@@ -27,9 +27,13 @@ Everything should work now, given you have a database (Redis by default).
 
 In addition check the ./etc/sniffy/db.creds.yaml if authentication details are correct.
 
+At this point you should be able to run sniffy locally to test, for example:
+```bash
+./bin/sniffy -x ./etc/sniffy/db.creds.yml -s ./etc/sniffy/signatures.yml -d
+```
 
 
-Then:
+For installation on the system you can proceed with:
 ```bash
 python setup.py install
 ```
