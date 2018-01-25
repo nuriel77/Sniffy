@@ -31,3 +31,8 @@
   method: 'POST'
   uri: '/xmlrpc.php'
   payload: '.*\n*.*wp.getUsersBlogs.*\n*.*wp.getUsersBlogs.*\n*.*'
+
+- name: 'iri_api'
+  method: 'POST|GET|PUT|TRACE|OPTIONS|HEAD' # Regex
+  uri: '/'
+  payload: '.*'

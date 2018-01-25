@@ -79,7 +79,7 @@ class Parse:
       
     """
 
-    #out.show()
+    out.show()
 
     # Prepare dict
     request = {
@@ -147,7 +147,6 @@ class Parse:
 
     """ This is not a HTTPRequest, it is mosy likely a fragment """
     if not out.haslayer(self.sh.HTTPRequest):
-
       # Check if any fragments already in bucket
       # because first pkt (HTTPRequest) should already
       # be in fragments unique bucket
@@ -262,7 +261,7 @@ class Parse:
         del self.save_request[bucket_key]
         return dict(request=pkt_request)
     else:
-      #self.log.debug('***Non HTTP')
+      self.log.debug('***Non HTTP')
       pass
 
   def _check_fragment(self, out, bucket_key, force_last_pkt):

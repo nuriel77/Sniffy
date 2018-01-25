@@ -9,7 +9,7 @@ from sniffy.utils.cfg_loader import load_sigs
 from sniffy.core.inspector import Parse, Match
 from sniffy.core.process import CheckDB
 from sniffy.core.dbconnector import DBH
-#import pprint
+import pprint
 
 """
 Suppress scapy warning if no default route for IPv6.
@@ -33,7 +33,8 @@ Try to import scapy_http.http and show error
  w/ install instructions if it cannot be imported.
 """
 try:
-  import scapy_http.http
+  #import scapy_http.http
+  from scapy.layers import http
 except ImportError:
   sys.stderr.write("ERROR: You must have scapy-http installed.\n")
   sys.stderr.write("You can install it by running: sudo pip install scapy-http\n")
@@ -63,7 +64,7 @@ class Sniffy():
     # Load signatures into Match class
     self.load_signatures()
     # Instantiate Parse class
-    self.parser = Parse(self.log, self.args, IP, scapy_http.http, self.match)
+    self.parser = Parse(self.log, self.args, IP, http, self.match)
 
     self.log.info(msg)
     self.log.debug("Interface: %s, Filter: %s, Count: %s" \
@@ -110,7 +111,10 @@ class Sniffy():
 
     """
 
-    #pprint.pprint(out.getlayer(scapy_http.http.HTTPRequest).fields, indent=4, width=1)
+    #if out.haslayer(http.HTTPRequest):
+    #    pprint.pprint(out.getlayer(http.HTTPRequest).fields, indent=4, width=1)
+
+    #pprint.pprint(out.getlayer(IP).payload)
 
     data = self.parser.parse_output(out)
     if type(data) is dict:
