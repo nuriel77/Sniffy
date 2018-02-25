@@ -13,8 +13,8 @@ def parse_arguments():
     description="Scan HTTP Request headers (must be run as root or with capabilities to sniff).",
   )
   parser.add_argument("--logfile", "-l", help="Log file", default="/var/log/sniffy.log")
-  parser.add_argument("--credsfile", "-x", help="Database credentials file", default="/etc/sniffy/db.creds.yml")
-  parser.add_argument("--sigfile", "-s", help="Signatures file", default="/etc/sniffy/signatures.yml")
+  parser.add_argument("--credsfile", "-x", help="Database credentials file", default="./etc/sniffy/db.creds.yml")
+  parser.add_argument("--sigfile", "-s", help="Signatures file", default="./etc/sniffy/signatures.yml")
   parser.add_argument("--interface", "-i", help="Which interface to sniff on.", default="eth0")
   parser.add_argument("--notify", "-n", help="Email to notify about offenders.", default="abuse-team-notify@someemail.cl")
   parser.add_argument("--database", "-b", help="Which database engine to use.", default="redis")
